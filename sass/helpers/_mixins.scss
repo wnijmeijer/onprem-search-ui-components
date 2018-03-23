@@ -1,0 +1,26 @@
+@import '../base/variables';
+
+@mixin hidden() {
+  .hidden {
+    display: none;
+  }
+}
+
+@mixin flex-vertical-align() {
+  display: flex;
+  align-items: center;
+}
+
+@mixin clickable() {
+  cursor: pointer;
+  &:hover,
+  &:hover:visited {
+    text-decoration: none;
+    color: $vibrant-blue-darker;
+  }
+  &:visited {
+    text-decoration: none;
+    color: $vibrant-blue;
+  }
+  color: $vibrant-blue;
+}
