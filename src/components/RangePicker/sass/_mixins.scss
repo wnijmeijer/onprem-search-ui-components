@@ -1,0 +1,26 @@
+@mixin content-horizontal-padding {
+  padding-left: $content-horizontal-padding;
+  padding-right: $content-horizontal-padding;
+}
+
+@mixin facet-header {
+  .coveo-facet-header-title {
+    color: $font-color;
+  }
+  .coveo-facet-header {
+    padding: 10px 20px;
+    color: $font-color;
+    text-transform: uppercase;
+    a {
+      color: $font-color;
+    }
+    .coveo-facet-header-eraser,
+    .coveo-facet-header-eraser:hover {
+      text-indent: 0;
+      font-size: 22px;
+    }
+    .coveo-facet-header-eraser:hover {
+      color: #85144b;
+    }
+  }
+}

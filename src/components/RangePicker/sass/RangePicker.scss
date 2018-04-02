@@ -1,0 +1,52 @@
+@import 'reset';
+@import 'variables';
+@import 'mixins';
+
+.CoveoRangePicker {
+  @import 'coveo-styleguide-dependencies';
+  @include facet-header();
+  border: 1px solid #ccc;
+  background-color: $pure-white;
+  border-radius: 2px;
+  .picker-wrapper {
+    @include content-horizontal-padding();
+    padding-bottom: $content-horizontal-padding - $input-vertical-margin;
+    .date-separator {
+      font-size: 15px;
+      line-height: 36px;
+    }
+    .coveo-button {
+      width: calc(50% - 10px);
+      border-color: $color-light-grey;
+    }
+  }
+  .option-picker {
+    @include content-horizontal-padding();
+  }
+  .coveo-button {
+    margin: $input-vertical-margin 0;
+    // background-image: url('/image/calendar.png');
+    background-position: -1px -2px;
+    background-repeat: no-repeat;
+  }
+  .coveo-button-active {
+    background-image: none !important;
+  }
+  .coveo-range-picker-header-collapse {
+    // background-image: url("../image/collapse.png");
+    display: inline-table;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    background-size: 16px 16x;
+    background-position: 0px 0px;
+    width: 16px;
+    height: 16px;
+    text-indent: 16px;
+  }
+  .CoveoRangePicker.collapsed .coveo-range-picker-header-collapse {
+    // background-image: url("../image/expand.png");
+  }
+  .CoveoRangePicker.collapsed > .data-range-content {
+    display: none;
+  }
+}
