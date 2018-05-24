@@ -4,7 +4,7 @@ const ncp = require('ncp').ncp;
 
 const folderToCopy = [
   {
-    src: './pages/',
+    src: './views/',
     dest: './bin'
   }
 ];

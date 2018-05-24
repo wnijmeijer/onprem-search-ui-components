@@ -15,7 +15,20 @@ const devServerOptions = Object.assign({}, webpackConfig.devServer, {
   },
   contentBase: './bin/',
   publicPath: '/js/',
-  compress: true
+  compress: true,
+  before(app) {
+    app.set('view engine', 'ejs');
+    app.get('/', (req, res) => {
+      res.render(`index`, (err, html) => {
+        if (err) {
+          console.error(err);
+          res.status(404).send('Page not found');
+        } else {
+          res.send(html);
+        }
+      });
+    });
+  }
 });
 
 const webpackServer = new WebpackDevServer(compiler, devServerOptions);
