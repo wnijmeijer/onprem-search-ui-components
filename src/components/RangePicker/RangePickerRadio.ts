@@ -18,7 +18,7 @@ export interface IRangePickerRadioOptions {
  */
 class RadioOption {
   private element: Dom | undefined;
-  private button: Dom | undefined;
+  private radioInput: Dom | undefined;
 
   constructor(private value: string, private label: string) {}
 
@@ -27,16 +27,20 @@ class RadioOption {
   }
 
   isChecked(): boolean {
-    Assert.exists(this.button);
-    return (this.button as Dom).hasClass('active');
+    Assert.exists(this.radioInput);
+    return ((this.radioInput as Dom).el as HTMLInputElement).checked;
   }
 
   check() {
-    (this.button as Dom).addClass('active');
+    if (this.radioInput) {
+      (this.radioInput.el as HTMLInputElement).checked = true;
+    }
   }
 
   uncheck() {
-    (this.button as Dom).removeClass('active');
+    if (this.radioInput) {
+      (this.radioInput.el as HTMLInputElement).checked = false;
+    }
   }
 
   appendToParent(parent: Dom): void {
@@ -45,9 +49,10 @@ class RadioOption {
   }
 
   build() {
-    this.element = $$('li');
-    this.button = $$('button', {}, this.label);
-    this.element.append(this.button.el);
+    this.element = $$('div', { className: 'radio-option' });
+    this.radioInput = $$('input', { name: 'enabledOptions', type: 'radio', id: this.label });
+    this.element.append(this.radioInput.el);
+    this.element.append($$('label', { for: this.label }, this.label).el);
     return this.element;
   }
 }
@@ -70,7 +75,9 @@ export class RangePickerRadio {
   constructor(private root: HTMLElement, private options: IRangePickerRadioOptions) {}
 
   build(): HTMLElement {
-    const radioList = $$('ul', { className: 'option-picker flex flex-wrap mt2 mb2' });
+    const formGroup = $$('fieldset', { className: 'form-group' });
+    const fromControl = $$('div', { className: 'form-control radio-select' });
+    formGroup.append(fromControl.el);
 
     this.radioOptions = [
       this.buildRadioButton(RangePickerRadio.TODAY, this.options.todayCaption || l(RangePickerRadio.TODAY)),
@@ -80,10 +87,10 @@ export class RangePickerRadio {
     ];
 
     _.each(this.radioOptions, (radio: RadioOption, idx: number) => {
-      radio.appendToParent(radioList);
+      radio.appendToParent(fromControl);
     });
 
-    return radioList.el;
+    return formGroup.el;
   }
 
   private buildRadioButton(value: string, label: string): RadioOption {

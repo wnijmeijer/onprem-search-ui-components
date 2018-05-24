@@ -3,24 +3,56 @@
   padding-right: $content-horizontal-padding;
 }
 
-@mixin facet-header {
-  .coveo-facet-header-title {
-    color: $font-color;
+@mixin radio-button-section {
+  .option-picker {
+    @include content-horizontal-padding();
+    padding: 0;
+    margin: 0;
+    li {
+      padding-bottom: 4px;
+      height: 22px;
+      a {
+        cursor: pointer;
+        font-size: 13px;
+      }
+    }
   }
-  .coveo-facet-header {
-    padding: 10px 20px;
-    color: $font-color;
-    text-transform: uppercase;
-    a {
-      color: $font-color;
-    }
-    .coveo-facet-header-eraser,
-    .coveo-facet-header-eraser:hover {
-      text-indent: 0;
-      font-size: 22px;
-    }
-    .coveo-facet-header-eraser:hover {
-      color: #85144b;
+}
+
+@mixin input-section {
+  .input-section {
+    padding: 12px 0 0;
+    .input-row {
+      height: 36px;
+      .input-label {
+        width: 50px;
+        height: 16px;
+        font-size: 14px;
+        height: 30px;
+        align-items: center;
+        display: flex;
+      }
+      .coveo-button {
+        border-radius: 0;
+        border: none;
+        background: transparent;
+        border-bottom: 1px solid #979797;
+        padding: 0 10px;
+        font-size: 13px;
+        max-width: 130px;
+        &::placeholder {
+          font-size: 13px;
+          font-weight: 400;
+        }
+        + .calendar-icon {
+          cursor: pointer;
+          width: 16px;
+          margin: 10px;
+          > svg {
+            fill: $medium-blue;
+          }
+        }
+      }
     }
   }
 }

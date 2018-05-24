@@ -1,29 +1,34 @@
 import {
-  Model,
-  Utils,
-  IBuildingQueryEventArgs,
-  DateUtils,
-  Component,
-  l,
-  $$,
   ComponentOptions,
-  IQuerySuccessEventArgs,
-  IComponentBindings,
-  IAttributeChangedEventArg,
+  Component,
   Initialization,
-  QueryEvents,
-  BreadcrumbEvents,
+  $$,
+  l,
+  DateUtils,
   IPopulateBreadcrumbEventArgs,
-  Assert
+  BreadcrumbEvents,
+  IQuerySuccessEventArgs,
+  QueryEvents,
+  IBuildingQueryEventArgs,
+  Assert,
+  DatePicker,
+  IComponentBindings,
+  Utils,
+  IAttributeChangedEventArg,
+  Model
 } from 'coveo-search-ui';
 import { IRangePickerRadioOptions, RangePickerRadio } from './RangePickerRadio';
 import { RangePickerActionCause, IRangePickerAnalyticsArgs, IRadioSelectEventArgs, RangePickerEvent } from './events/RangePickerEvents';
-import { DatePicker } from './DatePicker';
-import { DatePicker_i18n, IDatePicker_i18n } from './DatePicker_i18n';
 import { SVGIcons } from './utils/SVGIcons';
 
 declare const require: (module: string) => any;
 require('./sass/RangePicker.scss');
+
+// Hack to prevent sending twice the same query
+Coveo.DatePicker.prototype['setValue'] = function(date: Date, preventOnSelect = false) {
+  (this as any)['picker'].setDate(date, preventOnSelect);
+  (this as any)['wasReset'] = false;
+};
 
 export interface IRangePickerOptions extends IRangePickerRadioOptions {
   id?: string;
@@ -34,6 +39,7 @@ export interface IRangePickerOptions extends IRangePickerRadioOptions {
   enableCollapse?: boolean;
   langCode?: string;
   format?: string;
+  inputPlaceholder?: string;
 }
 
 export class RangePicker extends Component {
@@ -126,7 +132,9 @@ export class RangePicker extends Component {
 
     langCode: ComponentOptions.buildStringOption({ defaultValue: 'en' }),
 
-    format: ComponentOptions.buildStringOption({ defaultValue: 'YYYY-MM-DD' })
+    format: ComponentOptions.buildStringOption({ defaultValue: 'YYYY-MM-DD' }),
+
+    inputPlaceholder: ComponentOptions.buildStringOption({ defaultValue: 'YYYY-MM-DD' })
   };
 
   static ID: string = 'RangePicker';
@@ -156,8 +164,8 @@ export class RangePicker extends Component {
 
     this.rangePickerRadio = new RangePickerRadio(this.root, this.options);
 
-    this.fromInput = this.buildInput();
-    this.toInput = this.buildInput();
+    this.fromInput = this.buildInput(this.getId('start'));
+    this.toInput = this.buildInput(this.getId('end'));
 
     this.initQueryEvents();
     this.initQueryStateEvents();
@@ -166,6 +174,8 @@ export class RangePicker extends Component {
   createDom() {
     this.buildFacetContent();
     this.updateAppearanceDependingOnState();
+    this.fromInput.reset();
+    this.toInput.reset();
   }
 
   /**
@@ -175,8 +185,8 @@ export class RangePicker extends Component {
    */
   reset(executeQuery: boolean = true) {
     this.ensureDom();
-    this.fromInput.gotoToday();
-    this.toInput.gotoToday();
+    this.fromInput.reset();
+    this.toInput.reset();
 
     if (this.shouldRenderRadioPicker()) {
       this.rangePickerRadio.reset();
@@ -197,15 +207,14 @@ export class RangePicker extends Component {
   }
 
   private buildContent() {
+    const innerContent = $$('div', { className: 'inner-content' });
+
     if (this.shouldRenderRadioPicker()) {
-      this.initRadioPicker();
+      innerContent.append(this.rangePickerRadio.build());
     }
 
-    this.element.appendChild(this.buildPickerInputs());
-  }
-
-  private initRadioPicker() {
-    this.element.appendChild(this.rangePickerRadio.build());
+    innerContent.append(this.buildPickerInputSection());
+    this.element.appendChild(innerContent.el);
   }
 
   private shouldRenderRadioPicker(): boolean {
@@ -213,16 +222,25 @@ export class RangePicker extends Component {
     return this.options.enableRadioButton as boolean;
   }
 
-  private buildPickerInputs(): HTMLElement {
-    const row = $$('div', { className: 'picker-wrapper flex mod-inline' });
-    const separator = $$('span', { className: 'date-separator' });
-    separator.append($$('span', {}, '-').el);
+  private buildPickerInputSection(): HTMLElement {
+    const inputSection = $$('div', { className: 'input-section' });
 
-    row.append(this.fromInput.getElement());
-    row.append(separator.el);
-    row.append(this.toInput.getElement());
+    inputSection.append(this.buildPickerinputRow('Start', this.getId('start'), this.fromInput.getElement()));
+    inputSection.append(this.buildPickerinputRow('End', this.getId('end'), this.toInput.getElement()));
 
-    return row.el;
+    return inputSection.el;
+  }
+
+  private getId(extra?: string): string {
+    return `${this.options.id}${extra ? '-' + extra : ''}`;
+  }
+
+  private buildPickerinputRow(labelCaption: string, id: string, inputElement: HTMLInputElement): HTMLElement {
+    const inputRow = $$('div', { className: 'flex input-row' });
+    inputRow.append($$('div', { className: 'input-label' }, labelCaption).el);
+    inputRow.append(inputElement);
+    inputRow.append($$('label', { for: id, className: 'calendar-icon' }, SVGIcons.icons.calendar).el);
+    return inputRow.el;
   }
 
   private buildHeader(): HTMLElement {
@@ -263,12 +281,12 @@ export class RangePicker extends Component {
     return this.eraserElement;
   }
 
-  private buildInput() {
-    const i18nConfig = new DatePicker_i18n(this);
-    const i18n: IDatePicker_i18n = i18nConfig.getI18nConfig(this.options.langCode as string);
-
-    const pickerElement = new DatePicker(() => this.handleInputChange(), i18n, this.options.format as string);
-    pickerElement.reset();
+  private buildInput(id: string) {
+    const pickerElement = new Coveo.DatePicker(() => this.handleInputChange());
+    if (this.options.inputPlaceholder) {
+      pickerElement.getElement().setAttribute('placeholder', this.options.inputPlaceholder);
+    }
+    pickerElement.getElement().setAttribute('id', id);
     return pickerElement;
   }
 
@@ -475,6 +493,13 @@ export class RangePicker extends Component {
   }
 
   private handleInputChange() {
+    try {
+      (this.fromInput as any)['wasReset'] = false;
+      (this.toInput as any)['wasReset'] = false;
+    } catch (error) {
+      this.logger.error('Unable to reset the inputs');
+    }
+
     this.ensureDom();
 
     if (this.shouldRenderRadioPicker()) {
