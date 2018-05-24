@@ -4,6 +4,6 @@ declare global {
   }
 }
 
-export { ShowMore } from './components/ShowMore/ShowMore';
+import './Components';
 import { doInitialization } from './Initialization';
 doInitialization();

@@ -5,10 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <script src="https://static.cloud.coveo.com/searchui/v2.3679/js/CoveoJsSearch.Lazy.min.js"></script>
+  <title>Custom Components</title>
+  <script src="https://static.cloud.coveo.com/searchui/v2.3679/js/CoveoJsSearch.min.js"></script>
   <script src="js/CoveoCustomComponents.js"></script>
   <link rel="stylesheet" href="https://static.cloud.coveo.com/searchui/v2.3679/css/CoveoFullSearch.css" />
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      Coveo.SearchEndpoint.configureSampleEndpoint();
+      Coveo.init(document.getElementById('search'));
+    });
+  </script>
 </head>
 
 <body id="search" class='CoveoSearchInterface' data-enable-history="true" data-design="new">
@@ -37,7 +44,6 @@
         <div class="CoveoSearchboxPreferences"></div>
         <div class="CoveoResultsFiltersPreferences"></div>
       </div>
-      <div class="CoveoSearchAlerts"></div>
       <div class="CoveoBreadcrumb"></div>
       <div class="CoveoParameterList"></div>
       <div class="CoveoSortDropdown"></div>
