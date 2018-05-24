@@ -4,7 +4,6 @@ declare global {
   }
 }
 
-export { ShowMore } from './components/ShowMore/ShowMore';
-export { RangePicker } from './components/RangePicker/RangePicker';
+import './Components';
 import { doInitialization } from './Initialization';
 doInitialization();

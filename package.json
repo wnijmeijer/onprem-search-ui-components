@@ -2,7 +2,7 @@
   "name": "search-ui-custom-components",
   "version": "1.0.0",
   "description": "",
-  "main": "dev.server.js",
+  "main": "dev",
   "scripts": {
     "setup": "node setup.js",
     "build": "npm run setup && cross-env NODE_ENV=production webpack",
