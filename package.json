@@ -12,7 +12,10 @@
     "test:debug": "karma start --browsers=Chrome --singleRun=false"
   },
   "lint-staged": {
-    "*.{js,json,css,md,ts,scss}": ["prettier --write", "git add"]
+    "*.{js,json,css,md,ts,scss}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "prettier": {
     "printWidth": 140,
