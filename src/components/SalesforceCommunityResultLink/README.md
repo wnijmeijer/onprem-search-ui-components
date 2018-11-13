@@ -1,11 +1,12 @@
 ## Basic Usage
 
-SalesforceCommunityResultLink will change clickable URI logic to open Salesforce content (Knowledge, Chatter & Case) in Salesforce Lightning Community
+SalesforceCommunityResultLink will change clickable URI logic to open Salesforce content (Knowledge, Chatter, ContentDocument & Case) in Salesforce Lightning Community
 
 ```
 https://mycommunity.company.com/s/article/article-url-name
 https://mycommunity.company.com/s/case/5002000000D8cuI
 https://mycommunity.company.com/s/feed/5003000000D8cuI
+https://mycommunity.company.com/s/contentdocument/5004000000D8cuI
 
 ```
 

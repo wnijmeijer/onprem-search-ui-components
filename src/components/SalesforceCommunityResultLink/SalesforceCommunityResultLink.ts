@@ -51,6 +51,8 @@ export class SalesforceCommunityResultLink extends ResultLink {
       this.result.clickUri = '//' + host + '/s/feed/' + this.result.raw.sfid;
     } else if (this.result.raw.objecttype == 'CollaborationGroup') {
       this.result.clickUri = '//' + host + '/s/group/' + this.result.raw.sfid;
+    } else if (this.result.raw.objecttype == 'ContentVersion') {
+      this.result.clickUri = '//' + host + '/s/contentdocument/' + this.result.raw.sfcontentdocumentid;
     } else if (this.result.raw.sfkbid) {
       this.result.clickUri = '//' + host + '/s/article/' + this.result.raw.sfurlname;
     }
