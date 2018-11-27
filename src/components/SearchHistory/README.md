@@ -2,6 +2,8 @@
 
 The SearchHistory component will display the list of all the user's previous search queries.
 
+`<div class="CoveoSearchHistory"></div>`
+
 ## Options
 
 ### caption (optional) : _string_
