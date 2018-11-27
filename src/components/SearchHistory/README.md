@@ -16,4 +16,4 @@ Specifies the maximum number of previous queries from the user's search history.
 
 Default value is `10`.
 
-Example: `data-numer-of-queries='5'`
+Example: `data-number-of-queries='5'`
