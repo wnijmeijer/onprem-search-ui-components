@@ -6,19 +6,18 @@ module.exports = merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
   output: {
-    filename: `[name].js`
+    filename: `./js/[name].js`
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '../css/[name].css'
+      filename: './css/[name].css'
     })
   ],
   devServer: {
     stats: {
       colors: true
     },
-    contentBase: './bin/',
-    publicPath: '/js/',
+    publicPath: '/assets/',
     compress: true,
     before(app) {
       app.set('view engine', 'ejs');

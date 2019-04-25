@@ -7,14 +7,14 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 module.exports = merge(common, {
   mode: 'production',
   output: {
-    filename: `[name].min.js`
+    filename: `./js/[name].min.js`
   },
   optimization: {
     minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '../css/[name].min.css'
+      filename: './css/[name].min.css'
     })
   ],
   module: {

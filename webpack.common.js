@@ -1,11 +1,12 @@
 const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
     CoveoCustomComponents: './src/Index'
   },
   output: {
-    path: path.resolve('./bin/js'),
+    path: path.resolve('./bin/'),
     libraryTarget: 'umd',
     library: 'CoveoCustomComponents',
     publicPath: '/bin/'
@@ -23,6 +24,7 @@ module.exports = {
       underscore: '_'
     }
   ],
+  plugins: [new CleanWebpackPlugin()],
   module: {
     rules: [
       {
