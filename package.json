@@ -25,7 +25,6 @@
     "@types/underscore": "^1.8.14",
     "clean-webpack-plugin": "^2.0.1",
     "coveo-search-ui": "^2.5926.10",
-    "coveo-styleguide": "^3.9.14",
     "css-loader": "^2.1.1",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^2.1.0",
