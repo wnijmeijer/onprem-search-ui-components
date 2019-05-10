@@ -1,5 +1,6 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
@@ -9,7 +10,8 @@ module.exports = {
     path: path.resolve('./bin/'),
     libraryTarget: 'umd',
     library: 'CoveoCustomComponents',
-    publicPath: '/bin/'
+    publicPath: '/bin/',
+    filename: `./js/[name].js`
   },
   resolve: {
     extensions: ['.ts', '.js', '.svg', '.scss'],
@@ -24,7 +26,12 @@ module.exports = {
       underscore: '_'
     }
   ],
-  plugins: [new CleanWebpackPlugin()],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: './css/[name].css'
+    })
+  ],
   module: {
     rules: [
       {
