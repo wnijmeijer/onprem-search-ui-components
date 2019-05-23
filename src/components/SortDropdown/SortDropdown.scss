@@ -10,6 +10,8 @@ $select-height: 40px;
 
 .coveo-custom-sort-dropdown-text {
   font-size: $select-font-size;
+  display: block;
+  text-align: left;
 }
 
 .CoveoSortDropdown {
