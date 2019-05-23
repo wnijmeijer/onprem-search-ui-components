@@ -8,6 +8,9 @@ $select-active-background: #F4F4F4;
 $select-width: 184px;
 $select-height: 40px; 
 
+.coveo-custom-sort-dropdown-text {
+  font-size: $select-font-size;
+}
 
 .CoveoSortDropdown {
   margin-bottom: 5px;
