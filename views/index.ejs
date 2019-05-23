@@ -53,15 +53,17 @@
       </div>
       <div class="CoveoBreadcrumb"></div>
       <div class="CoveoParameterList"></div>
-      <div class="CoveoSortDropdown"></div>
       <div class="coveo-results-header">
         <div class="coveo-summary-section">
           <span class="CoveoQuerySummary"></span>
           <span class="CoveoQueryDuration"></span>
         </div>
         <div class="coveo-sort-section">
-          <span class="CoveoSort" data-sort-criteria="relevancy" data-caption="Relevance"></span>
-          <span class="CoveoSort" data-sort-criteria="date descending,date ascending" data-caption="Date"></span>
+          <div class="CoveoSortDropdown" data-display-caption="true" data-caption="Sort by:">
+            <span class="CoveoSort" data-sort-criteria="relevancy" data-caption="Relevance"></span>
+            <span class="CoveoSort" data-sort-criteria="date descending" data-caption="Newest"></span>
+            <span class="CoveoSort" data-sort-criteria="date ascending" data-caption="Oldest"></span>
+          </div>
         </div>
       </div>
       <div class="CoveoHiddenQuery"></div>
