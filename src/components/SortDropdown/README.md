@@ -22,7 +22,7 @@ Default value is `Sort By:`.
 
 ### displayCaption (optional) : _boolean_
 
-Whether to display text caption url rewriting logic
+Whether to display caption
 
 Default value is `false`.
 
