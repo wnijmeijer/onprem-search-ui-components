@@ -5,8 +5,9 @@ import IComponentBindings = Coveo.IComponentBindings;
 import $$ = Coveo.$$;
 
 export interface ISortDropdownOptions {
-  textCaption: string;
-  displayAsSelect: boolean;
+  caption: string;
+  displayCaption?: boolean;
+  displayAsSelect?: boolean;
 }
 
 declare const require: (module: string) => any;
@@ -15,7 +16,8 @@ require('./SortDropdown.scss');
 export class SortDropdown extends Component {
   static ID = 'SortDropdown';
   static options: ISortDropdownOptions = {
-    textCaption: ComponentOptions.buildStringOption({ defaultValue: Coveo.l('SortBy') }),
+    caption: ComponentOptions.buildStringOption({ defaultValue: Coveo.l('SortBy') }),
+    displayCaption: ComponentOptions.buildBooleanOption({ defaultValue: false }),
     displayAsSelect: ComponentOptions.buildBooleanOption({ defaultValue: false })
   };
 
@@ -35,8 +37,9 @@ export class SortDropdown extends Component {
     // Query Events
     this.bind.onRootElement(Coveo.QueryEvents.querySuccess, (args: Coveo.IQuerySuccessEventArgs) => this.handleQuerySuccess(args));
     this.bind.onRootElement(Coveo.QueryEvents.queryError, (args: Coveo.IQueryErrorEventArgs) => this.handleQueryError(args));
-
-    Coveo.$$(this.element).append(this.buildLabel());
+    if (this.options.displayCaption) {
+      Coveo.$$(this.element).append(this.buildLabel());
+    }
     this.select = this.buildSelectElement();
     if (!this.options.displayAsSelect) {
       Coveo.$$(this.select).addClass('coveo-custom-select-hidden');
@@ -124,7 +127,7 @@ export class SortDropdown extends Component {
   }
 
   private buildLabel() {
-    const label = Coveo.$$('span', { className: 'coveo-custom-sort-dropdown-text' }, this.options.textCaption).el;
+    const label = Coveo.$$('span', { className: 'coveo-custom-sort-dropdown-text' }, this.options.caption).el;
     return label;
   }
 
