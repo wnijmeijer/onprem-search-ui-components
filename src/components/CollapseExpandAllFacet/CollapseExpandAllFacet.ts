@@ -3,21 +3,23 @@ import Initialization = Coveo.Initialization;
 import ComponentOptions = Coveo.ComponentOptions;
 import IComponentBindings = Coveo.IComponentBindings;
 
-export interface ICollapseAllOptions {
+export interface ICollapseExpandAllFacetOptions {
   CollapseText: string;
   ExpandText: string;
+  IsCollapsed: boolean;
 }
 
-export class CollapseAll extends Component {
+export class CollapseExpandAllFacet extends Component {
   static ID = 'CollapseAll';
 
-  static options: ICollapseAllOptions = {
+  static options: ICollapseExpandAllFacetOptions = {
     CollapseText: ComponentOptions.buildStringOption({ defaultValue: 'Collapse all' }),
-    ExpandText: ComponentOptions.buildStringOption({ defaultValue: 'Expand all' })
+    ExpandText: ComponentOptions.buildStringOption({ defaultValue: 'Expand all' }),
+    IsCollapsed: ComponentOptions.buildBooleanOption({ defaultValue: false })
   };
 
   /**
-   * Create a new CollapseAll
+   * Create a new CollapseExpandAllFacet
    * @param element
    * @param options
    * @param bindings
@@ -25,20 +27,19 @@ export class CollapseAll extends Component {
    */
 
   public anchor: HTMLElement;
-  public isCollapsed: boolean = false; // Can set the initial state of your facets
-  constructor(public element: HTMLElement, public options: ICollapseAllOptions, bindings?: IComponentBindings) {
-    super(element, CollapseAll.ID, bindings);
-    this.options = ComponentOptions.initComponentOptions(element, CollapseAll, options);
+  constructor(public element: HTMLElement, public options: ICollapseExpandAllFacetOptions, bindings?: IComponentBindings) {
+    super(element, CollapseExpandAllFacet.ID, bindings);
+    this.options = ComponentOptions.initComponentOptions(element, CollapseExpandAllFacet, options);
     this.init();
   }
 
   public init() {
     this.anchor = Coveo.$$('a', {class:"collapse-all-link"}, this.options.CollapseText).el;
     Coveo.$$(this.element).append(this.anchor);
-    Coveo.$$(this.element).on('click', () => this.isCollapsed ? this.expandAll() : this.collapseAll());
+    Coveo.$$(this.element).on('click', () => this.options.IsCollapsed ? this.expandAll() : this.collapseAll());
 
     // If isCollapsed has been set to true, collapse all facets on init
-    if (this.isCollapsed) {
+    if (this.options.IsCollapsed) {
         this.collapseAll();
     }
   }
@@ -50,7 +51,7 @@ export class CollapseAll extends Component {
     });
 
     this.anchor.textContent = this.options.CollapseText;
-    this.isCollapsed = !this.isCollapsed;
+    this.options.IsCollapsed = !this.options.IsCollapsed;
   }
 
   public collapseAll() {
@@ -60,8 +61,8 @@ export class CollapseAll extends Component {
     });
 
     this.anchor.textContent = this.options.ExpandText;
-    this.isCollapsed = !this.isCollapsed;
+    this.options.IsCollapsed = !this.options.IsCollapsed;
   }
 }
 
-Initialization.registerAutoCreateComponent(CollapseAll);
+Initialization.registerAutoCreateComponent(CollapseExpandAllFacet);
