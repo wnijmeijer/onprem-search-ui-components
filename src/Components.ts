@@ -6,3 +6,4 @@ export { DependentHierarchicalFacet } from './components/DependentHierarchicalFa
 export { SalesforceCommunityResultLink } from './components/SalesforceCommunityResultLink/SalesforceCommunityResultLink';
 export { SearchHistory } from './components/SearchHistory/SearchHistory';
 export { QuerySyntaxToggle } from './components/QuerySyntaxToggle.ts/QuerySyntaxToggle';
+export { CollapseExpandAllFacet } from './components/CollapseExpandAllFacet/CollapseExpandAllFacet';
