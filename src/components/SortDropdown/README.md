@@ -1,6 +1,6 @@
 ## Basic Usage
 
-The SortDropdown component will display Sort components in a dropdown.
+The SortDropdown displays Sort components in a dropdown.
 
 ```
 <div class="CoveoSortDropdown" data-display-caption="true" data-caption="Sort by:">
@@ -9,6 +9,8 @@ The SortDropdown component will display Sort components in a dropdown.
     <span class="CoveoSort" data-sort-criteria="date ascending" data-caption="Oldest"></span>
 </div>
 ```
+
+![SortDropdown](sortdropdown.png)
 
 ## Options
 
