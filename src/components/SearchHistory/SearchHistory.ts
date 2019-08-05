@@ -4,6 +4,7 @@ import {
   state,
   $$,
   LocalStorageUtils,
+  StringUtils,
   IQuerySuccessEventArgs,
   QueryEvents,
   IComponentBindings,
@@ -126,7 +127,7 @@ export class SearchHistory extends Component {
       this.queriesListHTMLElement.innerHTML = '';
       _.each(this.queriesList, expression => {
         // if (expression !== state(this.root, 'q')) {
-        const listItemCaption = $$('label', { className: 'coveo-facet-value-label' }, expression);
+        const listItemCaption = $$('label', { className: 'coveo-facet-value-label' }, StringUtils.htmlEncode(expression));
         const listItem = $$('li', { className: 'coveo-facet-value coveo-facet-selectable' });
         listItem.append(listItemCaption.el);
 
