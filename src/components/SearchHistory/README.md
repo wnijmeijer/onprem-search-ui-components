@@ -19,3 +19,8 @@ Specifies the maximum number of previous queries from the user's search history.
 Default value is `10`.
 
 Example: `data-number-of-queries='5'`
+
+
+### Preview
+
+![SearchHistory component](./SearchHistory_screenshot.png)

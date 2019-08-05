@@ -40,7 +40,7 @@ export class SearchHistory extends Component {
 
     this.hide();
     this.initLocalStorage();
-    this.element.appendChild(this.build());
+    this.build();
   }
 
   private initLocalStorage() {
@@ -98,24 +98,27 @@ export class SearchHistory extends Component {
   }
 
   public build(): HTMLElement {
-    const element = $$('div');
+    this.queriesListHTMLElement = $$('ul', { class: 'coveo-facet-values' }).el;
 
-    this.queriesListHTMLElement = $$('ol', { class: 'queries-history-list' }).el;
+    this.element.append(this.buildPanelHeading());
+    this.element.append(this.queriesListHTMLElement);
 
-    element.append(this.buildPanelHeading());
-    element.append(this.queriesListHTMLElement);
-
-    return element.el;
+    return this.element;
   }
 
   public buildPanelHeading(): HTMLElement {
-    const panelHeading = $$('div', { className: 'panel-heading' });
-    const caption = $$('span', { className: 'caption-for-queries-history' }, this.options.caption || l('SearchHistory'));
 
-    panelHeading.append($$('i', { className: 'fas fa-history' }).el);
-    panelHeading.append(caption.el);
+    const caption: string = this.options.caption || l('SearchHistory');
 
-    return panelHeading.el;
+    const header = $$('div', { className: 'coveo-facet-header' });
+    const titleSection = $$('div', { className: 'coveo-facet-header-title-section' });
+
+    const titleCaption = $$('div', { className: 'coveo-facet-header-title' }, caption);
+    titleCaption.prepend($$('i', { className: 'fas fa-history' }).el);
+    titleSection.append(titleCaption.el);
+    header.append(titleSection.el);
+
+    return header.el;
   }
 
   public buildPreviousQueries(list: any[]) {
@@ -123,8 +126,8 @@ export class SearchHistory extends Component {
       this.queriesListHTMLElement.innerHTML = '';
       _.each(this.queriesList, expression => {
         // if (expression !== state(this.root, 'q')) {
-        const listItemCaption = $$('div', { className: 'queries-history-item-caption' }, expression);
-        const listItem = $$('li');
+        const listItemCaption = $$('label', { className: 'coveo-facet-value-label' }, expression);
+        const listItem = $$('li', { className: 'coveo-facet-value coveo-facet-selectable' });
         listItem.append(listItemCaption.el);
 
         listItem.on('click', () => this.handleHistoryClick(expression));
