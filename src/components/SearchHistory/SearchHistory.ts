@@ -98,13 +98,11 @@ export class SearchHistory extends Component {
     this.buildPreviousQueries(this.queriesList);
   }
 
-  public build(): HTMLElement {
+  public build() {
     this.queriesListHTMLElement = $$('ul', { class: 'coveo-facet-values' }).el;
 
     this.element.append(this.buildPanelHeading());
     this.element.append(this.queriesListHTMLElement);
-
-    return this.element;
   }
 
   public buildPanelHeading(): HTMLElement {
