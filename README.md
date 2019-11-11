@@ -1,6 +1,6 @@
-# search-ui-custom-components
+# onprem-search-ui-components
 
-UI components extending Coveo's Search UI components.
+UI components extending Coveo's Search UI components, SPECIFIC FOR (OLDER JS UI) ONPREMISE
 
 All Custom components are located under the folder `src/components/`
 
