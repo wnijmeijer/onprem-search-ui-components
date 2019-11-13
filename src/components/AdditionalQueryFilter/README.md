@@ -44,7 +44,7 @@ Example: `data-fields="@mycompany,@myuser"`
 
 Query to execute to retrieve the fields
 
-Example: `data-query="@sysource=People @querytogetcompanyname" `
+Example: `data-query="@syssource=People @querytogetcompanyname" `
 
 ### filterquery : _string_
 
@@ -52,6 +52,14 @@ Query to execute as new AdvancedExpression with every query.
 FIELDX in order of the fields specified by fields.
 
 Example: `data-filterquery="(@mycompany={FIELD1} AND @myuser={FIELD2}) OR NOT @mycompany" `
+
+
+### filterquerynoresults : _string_
+
+Query to execute when query did not find the content.
+
+
+Example: `data-filterquerynoresults="NOT @mycompany" `
 
 ### scope : _string_
 

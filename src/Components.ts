@@ -3,6 +3,7 @@
 export { RewriteResultLink } from './components/RewriteResultLink/RewriteResultLink';
 export { ScopeSelector } from './components/ScopeSelector/ScopeSelector';
 export { RangePicker } from './components/RangePicker/RangePicker';
+export { AdditionalQueryFilter } from './components/AdditionalQueryFilter/AdditionalQueryFilter';
 /*export { SortDropdown } from './components/SortDropdown/SortDropdown';
 export { DependentHierarchicalFacet } from './components/DependentHierarchicalFacet/DependentHierarchicalFacet';
 export { SalesforceCommunityResultLink } from './components/SalesforceCommunityResultLink/SalesforceCommunityResultLink';
