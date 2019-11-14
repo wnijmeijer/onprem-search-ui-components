@@ -138,7 +138,7 @@ export class RangePicker extends Component {
   }
 
   private buildPickerInputSection(parent: any) {
-    const inputSection = Coveo.$('<div class="coveo-facet-values"></div>').appendTo(parent);
+    const inputSection = Coveo.$('<div class="coveo-facet-values CoveoInputDateRangePicker"></div>').appendTo(parent);
 
     inputSection.append(this.buildPickerinputRow('Start', this.getId('start')));
   }
