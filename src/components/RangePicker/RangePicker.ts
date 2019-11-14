@@ -378,7 +378,7 @@ export class RangePicker extends Component {
       this.reset();
     });
 
-    const caption = Coveo.$('<span class="coveo-facet-breadcrumb-caption"></span>').text(range.join(' - '));
+    const caption = Coveo.$('<span class="coveo-facet-breadcrumb-caption"></span>').text(range.join(' '));
     caption.appendTo(value);
 
     const eraser = Coveo.$('<span class="coveo-facet-breadcrumb-clear"></span>');
