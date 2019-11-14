@@ -39,7 +39,7 @@ export class ScopeSelector extends Component implements ComponentBindings {
     scope = this.options.scopes[currentTab] || scope;
     if (scope!=''){
       this.logger.info('ScopeSelector Scope', scope);
-      Coveo.SearchEndpoint.endpoints.default.options.queryStringArguments.scope = scope;
+      Coveo.SearchEndpoint.endpoints['default'].options.queryStringArguments.scope = scope;
     }
   }
 

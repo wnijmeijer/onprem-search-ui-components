@@ -5,5 +5,4 @@ declare global {
 }
 
 import './Components';
-import { doInitialization } from './Initialization';
-doInitialization();
+
